@@ -1,0 +1,4 @@
+#ifndef OTTIMIZZATORI_HPP
+#define OTTIMIZZATORI_HPP
+
+#endif
