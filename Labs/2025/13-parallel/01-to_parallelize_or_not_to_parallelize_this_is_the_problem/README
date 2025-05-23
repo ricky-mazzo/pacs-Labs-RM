@@ -1,0 +1,49 @@
+Exercise on creating a class and library for full matrices
+
+** BUILD **
+
+Use the command
+
+  make libmatrix.a
+
+To build the static libary, or 
+
+  make SHARED_EXT=so libmatrix.so
+
+to build a shared library.
+To build the tests use the command
+
+  make test_matrix_mult
+
+The different implementations of the matrix-matrix
+multiplication method can be selected by setting the
+following C++ precompiler options
+
+USE_DGEMM   use LAPACK routine DGEMM to implement
+            matrix-matrix multiplication
+
+The Makefile allows to set the following variables for customization:
+
+CXX         C++ compiler command
+CXXFLAGS    C++ compiler flags
+LIBS        libraries to pass to the linker, e.g. -l<library>
+CPPFLAGS    C++ preprocessor flags, e.g. -I<include dir> if
+            you have headers in a nonstandard directory <include dir>
+LDFLAGS     linker flags, e.g. -L<lib dir> if you have libraries in a
+            nonstandard directory <lib dir>
+SHARED_EXT  file extension for shared libraries, e.g. "so"
+            on GNU/Linux or "dylib" on OSX
+
+
+** TESTS **
+
+The following unit tests for the main class methods are provided
+
+test_matrix_mult   test the matrix-matrix multiplication method
+                   and output timing info
+
+EXAMPLES ON MACOS :
+
+make CXX=clang++ CXXFLAGS="-std=gnu++17 "  LDFLAGS="-L/opt/local/lib" LIBS="-lopenblas" CPPFLAGS="-DNDEBUG -Umsize -Dmsize=2048" distclean test_matrix_mult
+make CXX=clang++ CXXFLAGS="-std=gnu++17 -O2"  LDFLAGS="-L/opt/local/lib" LIBS="-lopenblas" CPPFLAGS="-DNDEBUG -Umsize -Dmsize=2048" distclean test_matrix_mult
+make CXX=clang++ CXXFLAGS="-std=gnu++17 -O2"  LDFLAGS="-L/opt/local/lib" LIBS="-lopenblas" CPPFLAGS="-DNDEBUG -Umsize -Dmsize=2048 -DUSE_DGEMM" distclean test_matrix_mult
